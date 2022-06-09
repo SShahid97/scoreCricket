@@ -1,0 +1,21 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { 
+    height: 100%; 
+}
+body { 
+    margin: auto; 
+    width:80%;
+    background:rgba(40, 240, 22, 0.418); 
+    /* background: url("/assets/images/cricketGround2.jpeg"); */
+    font-family: Roboto, "Helvetica Neue", sans-serif; 
+}
+
+@media (max-width: 600px){
+    body { 
+        width:100%;
+        font-size:10px;
+        font: 400 13px/16px Roboto, "Helvetica Neue", sans-serif !important;
+    }   
+}
+

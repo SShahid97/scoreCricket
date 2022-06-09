@@ -1,0 +1,247 @@
+.modal-header{
+    padding:0.5rem 0.7rem;
+}
+/* p {
+    margin: 5px 0px 5px;
+} */
+.modal-title {
+    line-height: 1.5;
+    margin: 6px 0;
+    font-size: 1.2em;
+}
+label{
+    font-size: 1.2em;
+}
+.table .thead-dark th {
+    font-family: sans-serif;
+    font-size: medium;
+}
+.widths{
+    width:60%;
+    padding:0rem 0rem 0rem 0.5rem;
+}
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button {  
+   /* opacity: 0; */
+   display: none;
+}
+/* 
+input[type=number]:hover::-webkit-inner-spin-button {  
+    width: 50px;
+    height: 33px;
+} */
+
+.battingHeading{
+    padding: 13px 10px 1px 9px; 
+    background: blue; 
+    width:30%; 
+    margin-top:5px; 
+    margin-bottom: 0px; 
+    color:white; 
+    font-size: 1.1rem;
+    border-top-right-radius: 60px;
+    font-weight: 500;
+}
+
+.bowlingHeading{
+    padding: 13px 10px 1px 9px; 
+    background: rgb(50, 207, 50); 
+    width:30%; 
+    margin-top:25px; 
+    margin-bottom: 0px; 
+    color:white; 
+    font-size: 1.1rem;
+    border-top-right-radius: 60px;
+    font-weight: 500;
+}
+.scoreHead .row{
+    margin-right: 0;
+    margin-left: 0;
+}
+
+
+.extrasHeading{
+    padding: 13px 10px 1px 9px; 
+    background: rgb(177, 17, 192); 
+    width:30%; 
+    margin-top:25px; 
+    margin-bottom: 0px; 
+    color:white; 
+    font-size: 1.1rem;
+    border-top-right-radius: 60px;
+    font-weight: 500;
+}
+
+.table .thead-dark th {
+    width: 40px;
+}
+
+.inlineScore{
+    display: inline;
+}
+.tExtras{
+    background: #17a2b8;
+    padding: 10px;
+    color: white;
+    font-size: 1.3em;
+    font-family: cursive;
+}
+
+.badge{
+    font-size: 1.1em;
+}
+.badge:hover{
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.dontShow{
+    display: none;
+}
+.disable{
+    opacity: 0.2;
+    cursor: auto;
+}
+.enable{
+    opacity: 1;
+    cursor: pointer;
+}
+.highlight:hover{
+    cursor: pointer;
+    background: rgba(17, 201, 247, 0.514);
+}
+tr{
+    font-size: 1.1rem;
+}
+
+.showSecondInningbtn{
+    font-size: 1.2em; 
+    font-weight: 600;
+    background:rgba(233, 10, 133, 0.801); 
+    color:white;
+    padding: 13px; 
+}
+.showSecondInningbtn:hover{
+    cursor: pointer;
+    opacity: 0.95;
+    border: 2px solid purple;
+}
+.endInningsBtn{
+    margin-top:10px; 
+    padding:8px 20px; 
+    font-size: 1.3em;
+}
+
+.currentBatsman{
+    box-shadow: 3px 3px 2px 3px #d65858;
+}
+
+.showHide{
+    display: none;
+}
+.hideShow{
+    display: contents;
+} 
+
+.scoreHeadShow{
+    display: none;   
+}
+.scoreHeadHide{
+    display: block;   
+}
+.footer-div{
+    margin-top:10px;   
+    height:10px; 
+    font-size:1.1em; 
+    margin-bottom:10px; 
+}
+
+@media screen and (max-width:600px){
+    .table {
+        width: 135%;
+    }
+    td{
+        padding-left: 6px;
+    }
+    tr{
+        font-size: 1.3em;
+    }
+    .table th {
+        font-size: 0.6em;
+        padding: 0.5em;
+    }    
+    .scoreHead{
+        width: 138%;
+    }
+    .showFirstInningbtn{
+        padding: 5px;
+    }
+    .scoreHeadShow{
+        display: block;   
+    }
+    .scoreHeadHide{
+        display: none;   
+    }
+    .showHide{
+        display: contents;
+    }
+    .hideShow{
+        display: none;
+    }
+    .addB .form-control{
+        width: 75px;
+    }
+    .addB [type=text]{
+        padding:5px;
+    } 
+    .battingHeading{
+        width:55%;
+    }
+    .bowlingHeading{
+        width:55%;
+    }
+    .tExtras{
+        font-family: sans-serif;
+        font-weight: 600;
+        width:138%;
+    }
+    .endInningsBtn{
+        margin-left: 5px;
+        padding:5px 10px; 
+        font-size: 1.2em;
+    }
+    .showSecondInningbtn{
+        font-size: 1.3em; 
+        padding:10px;
+        border-radius:3px;
+        /* background: rgba(40, 240, 22, 0.418); */
+    }
+    .ballsBatsman{
+        display: inline-grid;
+    }
+
+    .footer-div{
+        width: 138%;
+    }
+  
+    
+}
+.containerT {
+    font-size: 1.5em;
+    width:138%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  .item {
+  
+    width:auto;
+    height:auto;
+    padding:5px;
+    /* padding-bottom: 32%; Same as width, sets height */
+    margin-bottom: 1%; /* (100-32*3)/2 */
+    position: relative;
+  }
+
+

@@ -1,0 +1,602 @@
+<div style="position: sticky; top: 0px; z-index: 1000;" class="scoreHead scoreHeadHide">
+  <div  style="background:honeydew; font-family: system-ui; color:white;">
+    <div class="row" id="scoreHeader" style="padding: 0px;">
+        <div class="col-sm-3" style="background: blue; padding: 13px;">
+             <span style="font-size: 1.2em;"><strong>{{battingChosenby}}</strong></span>&nbsp;&nbsp;&nbsp;
+             <span style="font-size: 1.2em;"><strong>{{totalScore}}-{{totalWickets}}</strong></span>
+             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size: 0.9em; font-weight: 500;">RR:{{currentRunRate}}</span>
+             <!-- style="font-size: larger; color:white; background: blue; padding: 15px 12px 17px 8px;" -->
+        </div>
+        <div class="col-sm-6" style="background: rgba(0, 0, 0, 0.795); padding: 13px;">
+          <div class="row" >
+              <ng-container *ngIf="!disableAllBtns">
+                <div *ngFor="let Batsman of currentBatsmen" class="col-sm-6" style="font-weight: 600; ">
+                  <span style="font-size:1.2em;">{{Batsman.batsmanName | uppercase}}</span>&nbsp;&nbsp;&nbsp;
+                  <span style="font-size:1.2em;">{{Batsman.runs}}</span>
+                  <span style="font-size:0.95em;">{{Batsman.balls }}</span>
+                </div>
+              </ng-container>
+              <div *ngIf="disableAllBtns" class="col-sm-12" style="text-align: center; font-size:1.2em;">
+                <span >{{inningsEnded}}</span><br>
+                <span *ngIf="!removeNeedToWin">{{bowlingChosenby}} need {{totalScore+1}} runs to win</span>
+              </div>
+          </div>
+        </div>
+        <div class="col-sm-3 text-right"  style="background: rgb(50, 207, 50); padding: 13px;">
+          <ng-container *ngIf="bowlerSelected" >
+            <span style="font-size: 1.2em; font-weight: 600;" >{{this.BowlerfirstName[0]|uppercase}}</span>&nbsp;&nbsp;
+            <span style="font-size: 1.2em; font-weight: 600;" >{{selBowler.runsConceded}}-{{selBowler.wickets}}</span>&nbsp;
+            <span style="font-size: 0.95em; font-weight: 600; " >({{selBowler.oversBowled}}.{{selBowler.ballsOfOver}})</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </ng-container>
+            <!-- <span style="font-size: 1.2em;"><strong>{{bowlingChosenby}}</strong></span>&nbsp;&nbsp; -->
+            <span style="font-size: larger;" ><strong>{{totalOversBowled}}<span *ngIf="ballsOfOver>0">.{{ballsOfOver}}</span>/{{totalMatchOvers}}
+            &nbsp;&nbsp;&nbsp;{{bowlingChosenby}}</strong> </span>
+          
+            <!-- style="font-size: larger;  background: chartreuse; padding: 15px 12px 17px 8px;" -->
+        </div>
+    </div>
+    <div class="row" *ngIf="disableAllBtns==true">
+      <div class="col-sm-3 showSecondInningbtn" [routerLink]="['/second-innings', matchName]">
+      <span  >Second Innings</span>
+      </div>
+      <div class="col-sm-6"  style="background:rgba(40, 240, 22, 0.418);">
+       
+      </div>
+      <div class="col-sm-3"  style="background:rgba(40, 240, 22, 0.418);">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- for mobile -->
+<div style="position: sticky; top: 0px; z-index: 1000;" class="scoreHead scoreHeadShow">
+  <div  style="background:honeydew; font-family: system-ui; color:white;">
+    <div class="row" id="scoreHeader" style="padding: 0px;">
+        <div class="col-3" style="background: blue; padding: 5px;">
+             <span style="font-size: 1.2em;"><strong>{{battingChosenby}}</strong></span>&nbsp;&nbsp;&nbsp;
+             <span style="font-size: 1.2em;"><strong>{{totalScore}}-{{totalWickets}}</strong></span>
+             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size: 0.9em; font-weight: 500;">RR:{{currentRunRate}}</span>
+             <!-- style="font-size: larger; color:white; background: blue; padding: 15px 12px 17px 8px;" -->
+        </div>
+        <div class="col-6" style="background: rgba(0, 0, 0, 0.795); padding: 13px;padding-left: 0px; padding-right: 0px; ">
+          <div class="row" >
+              <ng-container *ngIf="!disableAllBtns">
+                <div *ngFor="let Batsman of currentBatsmen" class="col-6" style="font-weight: 600; ">
+                  <span style="font-size:1.2em;">{{Batsman.batsmanName| uppercase}}</span>&nbsp;&nbsp;&nbsp;
+                  <span style="font-size:1.2em;">{{Batsman.runs}}</span>
+                  <span style="font-size:0.95em;">{{Batsman.balls }}</span>
+                </div>
+              </ng-container>
+              <div *ngIf="disableAllBtns" class="col-12" style="text-align: center; font-size:1.2em;">
+                <span >{{inningsEnded}}</span><br>
+                <span *ngIf="!removeNeedToWin">{{bowlingChosenby}} need {{totalScore+1}} runs to win</span>
+              </div>
+          </div>
+        </div>
+        <div class="col-3 "  style="background: rgb(50, 207, 50); padding: 5px;">
+          <ng-container *ngIf="bowlerSelected" >
+            <span style="font-size: 1.2em; font-weight: 500;" >{{this.BowlerfirstName[0]|uppercase}}</span>&nbsp;
+            <span style="font-size: 1.2em; font-weight: 500;" >{{selBowler.runsConceded}}-{{selBowler.wickets}}</span>&nbsp;
+            <span style="font-size: 0.95em; font-weight: 500; " >({{selBowler.oversBowled}}.{{selBowler.ballsOfOver}})</span>&nbsp;
+          </ng-container>
+            <!-- <span style="font-size: 1.2em;"><strong>{{bowlingChosenby}}</strong></span>&nbsp;&nbsp; -->
+            
+          
+            <!-- style="font-size: larger;  background: chartreuse; padding: 15px 12px 17px 8px;" -->
+        </div>
+    </div>
+    <div class="row" >
+      <div   class="col-4 " style="padding: 8px; background:rgba(40, 240, 22, 0.418);  padding-left: 0px;">
+        <div *ngIf="disableAllBtns==true" class="showSecondInningbtn" [routerLink]="['/second-innings', matchName]">
+          <span  >Second Innings</span>
+        </div>
+      </div>
+      <!--  -->
+      <div class="col-5"  style="background:rgba(40, 240, 22, 0.418);">
+       
+      </div>
+      <div class="col-3"  style="background:rgba(0, 0, 0, 0.795); padding: 8px;">
+        <span style="font-size: larger;" ><strong>{{totalOversBowled}}<span *ngIf="ballsOfOver>0">.{{ballsOfOver}}</span>/{{totalMatchOvers}}
+          &nbsp;&nbsp;&nbsp;{{bowlingChosenby}}</strong> </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div class="battingHeading">
+    <p>{{battingChosenby}} Batting</p>
+  </div>
+  <!-- when inning ended -->
+  <table *ngIf="disableAllBtns"  class="table table-striped">
+    <thead class="thead-dark hideShow"> 
+      <th>Name</th>
+      <th>Runs</th>
+      <th>Balls</th>
+      <th>SR</th>
+      <th>4s</th>
+      <th>6s</th>
+      <th>Dismisal Mode</th>
+  </thead>
+    <thead class="thead-dark showHide"> 
+        <th>Name</th>
+        <th>R</th>
+        <th>B</th>
+        <th>SR</th>
+        <th>4s</th>
+        <th>6s</th>
+        <th>DM</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let tm of batsmen; let i=index;">
+        <td>
+            <span><b>{{tm.batsmanName}}</b></span>
+        </td>
+        <td>
+            <span>{{tm.runs}}</span>
+        </td>
+        <td>
+            <span>{{tm.balls}}</span>
+        </td>
+        <td>{{strikeRates[i]}}</td>
+        <td>
+            <span>{{tm.fours}}</span>
+        </td>
+        <td>
+            <span>{{tm.sixes}}</span>
+        </td>
+        <td>
+            <span>{{tm.dismisal}}</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <table *ngIf="!disableAllBtns" class="table table-striped">
+    <thead class="thead-dark hideShow"> 
+        <th>Name</th>
+        <th>Runs</th>
+        <th>Balls</th>
+        <th>SR</th>
+        <th>4s</th>
+        <th>6s</th>
+        <th >Dismisal</th>
+        <th *ngIf="!disableBatsmanBtns">Choose</th>
+    </thead>
+    <thead class="thead-dark showHide"> 
+      <th>Name</th>
+      <th>R</th>
+      <th>B</th>
+      <th>SR</th>
+      <th>4s</th>
+      <th>6s</th>
+      <th >DM</th>
+      <th *ngIf="!disableBatsmanBtns">Choose</th>
+  </thead>
+    <tbody >
+      <tr *ngFor="let tm of batsmen; let i = index" >
+        <td >
+            <span ><b>{{tm.batsmanName}}</b></span>  
+          <input #playername style="display: inline;" [hidden]="true" type="text" class="form-control" placeholder="Player Name" name="playerName"  value="{{tm.batsmanName}}">
+        </td>
+        <td>
+            <span>{{tm.runs}}</span> 
+           <input #runs style="display: inline;" [hidden]="true" type="number" class="form-control widths" placeholder="Runs" name="runs" value="0"> 
+        </td>
+  
+        <td>
+            <span >{{tm.balls}}</span> &nbsp;&nbsp;
+          <input #balls style="display: inline;" [hidden]="true" type="number" class="form-control widths" placeholder="Balls" name="balls" value="{{tm.balls}}"> 
+        </td>
+        <td>{{strikeRates[i]}}</td>
+        <td >
+            <span >{{tm.fours}}</span> &nbsp;&nbsp;
+          <input #fours style="display: inline;" [hidden]="true" type="number" class="form-control widths" placeholder="Fours" name="fours" value="{{tm.fours}}"> 
+        </td>
+  
+        <td>
+            <span >{{tm.sixes}}</span> &nbsp;&nbsp;
+          <input #sixes style="display: inline;" [hidden]="true" type="number" class="form-control widths" placeholder="Sixes" name="sixes" value="{{tm.sixes}}"> 
+        </td> 
+  
+        <td class="addB">
+            <span *ngIf="isDisable[i]">{{tm.dismisal}}</span> 
+            <input #dismisal style="display: inline;" [disabled]="disableBatsmanBtns"  [hidden]="isDisable[i]" type="text" class="form-control" placeholder="Dismisal" name="dismisal" value="{{tm.dismisal}}">
+            
+        </td>
+        <ng-container *ngIf="activeBatsman[i]">
+        <td *ngIf="!disableBatsmanBtns"  >
+          <span *ngIf="!isDisable[i] " class="ballsBatsman" >
+            <span class="badge badge-pill badge-info" (click)="addBatsmanBall(0,playername,tm.runs,runs,balls,fours,sixes,dismisal,i)">0</span>
+            <span class="badge badge-pill badge-primary" (click)="addBatsmanBall(1,playername,tm.runs,runs,balls,fours,sixes,dismisal,i)">1</span>
+            <span class="badge badge-pill badge-secondary" (click)="addBatsmanBall(2,playername,tm.runs,runs,balls,fours,sixes,dismisal,i)">2</span>
+            <span class="badge badge-pill badge-success" (click)="addBatsmanBall(3,playername,tm.runs,runs,balls,fours,sixes,dismisal,i)">3</span>
+            <span class="badge badge-pill badge-danger" (click)="addBatsmanBall(4,playername,tm.runs,runs,balls,fours,sixes,dismisal,i)">4</span>
+            <span class="badge badge-pill badge-warning" (click)="addBatsmanBall(5,playername,tm.runs,runs,balls,fours,sixes,dismisal,i)">5</span>
+            <span class="badge badge-pill badge-success" (click)="addBatsmanBall(6,playername,tm.runs,runs,balls,fours,sixes,dismisal,i)">6</span>
+            <span class="badge badge-pill badge-danger" (click)="addBatsmanBall('out',playername,tm.runs,runs,balls,fours,sixes,dismisal,i)">Out</span>
+        </span>
+        </td> 
+        </ng-container>
+      </tr>
+    
+       <tr  *ngIf="isAddBatsman" >   
+          <td class="addB">
+           <input #playername type="text" class="form-control" placeholder="Batsman" name="playerName"  value=""> 
+          </td>
+          <td>
+            <input #runs [hidden]="true"  type="number" placeholder="Runs" name="runs" value="0"> 
+          </td>
+          <td>
+            <input #balls [hidden]="true"  type="number"  placeholder="Balls" name="balls" value="0"> 
+          </td>
+          <td></td>
+          <td>
+            <input #fours [hidden]="true"  type="number" placeholder="Fours" name="fours" value="0"> 
+          </td>
+          <td>
+            <input #sixes [hidden]="true"  type="number"  placeholder="Sixes" name="sixes" value="0"> 
+          </td> 
+          <td >
+              <input #dismisal [hidden]="true"  type="text" placeholder="Dismisal" name="dismisal" value="notout">
+          </td>
+          
+          <td>
+            <button mat-raised-button class="btnOK" *ngIf="!disableAllBtns" style="min-width: 40px;" color="primary" (click)="addBatsman(playername,runs,balls,fours,sixes,dismisal)" >OK</button> 
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <!-- <div class="containerT">
+      <ng-container *ngFor="let tm of batsmen; let i = index">
+      <div class="item">
+          <span ><b>{{tm.batsmanName}}</b></span>  
+          <input #playername style="display: inline;" [hidden]="true" type="text" class="form-control" placeholder="Player Name" name="playerName"  value="{{tm.batsmanName}}">
+      </div>
+      <div class="item">
+          <span>{{tm.runs}}</span> 
+          <input #runs style="display: inline;" [hidden]="true" type="number" class="form-control widths" placeholder="Runs" name="runs" value="0">
+      </div>
+      <div class="item">
+          <span >{{tm.balls}}</span>
+          <input #balls style="display: inline;" [hidden]="true" type="number" class="form-control widths" placeholder="Balls" name="balls" value="{{tm.balls}}"> 
+      </div>
+      <div class="item">
+          <span>{{strikeRates[i]}}</span>
+      </div>
+      <div class="item">
+          <span >{{tm.fours}}</span>
+          <input #fours style="display: inline;" [hidden]="true" type="number" class="form-control widths" placeholder="Fours" name="fours" value="{{tm.fours}}">
+      </div>
+      <div class="item">
+          <span >{{tm.sixes}}</span> 
+          <input #sixes style="display: inline;" [hidden]="true" type="number" class="form-control widths" placeholder="Sixes" name="sixes" value="{{tm.sixes}}">
+      </div>
+      <div class="item">
+          <span *ngIf="isDisable[i]">{{tm.dismisal}}</span> 
+          <input #dismisal style="display: inline;" [disabled]="disableBatsmanBtns"  [hidden]="isDisable[i]" type="text" style="width:70%;" class="form-control" placeholder="Dismisal" name="dismisal" value="{{tm.dismisal}}">
+      </div>
+      <div class="item" *ngIf="!disableBatsmanBtns">
+          <span *ngIf="!isDisable[i] " >
+              <span class="badge badge-pill badge-info" (click)="addBatsmanBall(0,playername,tm.runs,runs,balls,fours,sixes,dismisal,i)">0</span>
+              <span class="badge badge-pill badge-primary" (click)="addBatsmanBall(1,playername,tm.runs,runs,balls,fours,sixes,dismisal,i)">1</span>
+              <span class="badge badge-pill badge-secondary" (click)="addBatsmanBall(2,playername,tm.runs,runs,balls,fours,sixes,dismisal,i)">2</span>
+              <span class="badge badge-pill badge-success" (click)="addBatsmanBall(3,playername,tm.runs,runs,balls,fours,sixes,dismisal,i)">3</span>
+              <span class="badge badge-pill badge-danger" (click)="addBatsmanBall(4,playername,tm.runs,runs,balls,fours,sixes,dismisal,i)">4</span>
+              <span class="badge badge-pill badge-warning" (click)="addBatsmanBall(5,playername,tm.runs,runs,balls,fours,sixes,dismisal,i)">5</span>
+              <span class="badge badge-pill badge-success" (click)="addBatsmanBall(6,playername,tm.runs,runs,balls,fours,sixes,dismisal,i)">6</span>
+              <span class="badge badge-pill badge-danger" (click)="addBatsmanBall('out',playername,tm.runs,runs,balls,fours,sixes,dismisal,i)">Out</span>
+           </span>   
+      </div>
+    </ng-container>
+    </div> -->
+  <button mat-raised-button *ngIf="!disableAllBtns" color="primary" style="margin-left: 5px;" (click)="addNewBatsman()" >Add New Batsman</button>
+  <br>
+  <hr style="background: blue; ">
+  
+
+
+ 
+
+  <div class="bowlingHeading">
+      <p>{{bowlingChosenby}} Bowling</p>
+  </div>
+  <!-- Displayed when innings ends -->
+  <table *ngIf="disableAllBtns" class="table table-striped">
+      <thead class="thead-dark hideShow">
+          <th>Name</th>
+          <th>Balls</th>
+          <th>Overs</th>
+          <th>Runs</th>
+          <th>Econ</th>
+          <th>Maidens</th>
+          <th>Wickets</th>
+      </thead>
+      <thead class="thead-dark showHide">
+        <th>Name</th>
+        <th>B</th>
+        <th>O</th>
+        <th>R</th>
+        <th>E</th>
+        <th>M</th>
+        <th>W</th>
+    </thead>
+      <tbody>
+      <tr *ngFor="let tm of Bowlers; let i=index">
+        <td>
+          <span><b>{{tm.bowlerName}}</b></span>
+        </td>
+        <td>
+          <span>{{tm.ballsOfOver}}</span> 
+        </td>  
+        <td>
+          <span>{{tm.oversBowled}}</span> 
+        </td>   
+        <td>
+            <span>{{tm.runsConceded}}</span>
+        </td>
+        <td>
+          {{bowlerEconomy[i]}}
+        </td> 
+        <td>
+            <span>{{tm.maidens}}</span> 
+        </td>
+        <td>
+            <span>{{tm.wickets}}</span>
+        </td>
+      </tr>
+      </tbody>
+  </table> 
+
+  <table *ngIf="!disableAllBtns" class="table table-striped">
+      <thead class="thead-dark hideShow">
+          <th>Name</th>
+          <th>Balls</th>
+          <th>Runs</th>
+          <th>Overs</th>
+          <th>Econ</th>
+          <th>Maidens</th>
+          <th>Wickets</th>
+      </thead>
+      <thead class="thead-dark showHide">
+        <th>Name</th>
+        <th>B</th>
+        <th>R</th>
+        <th>O</th>
+        <th>E</th>
+        <th>M</th>
+        <th>W</th>
+    </thead>
+      <tbody>
+      <tr class="highlight" *ngFor="let tm of Bowlers; let i=index" (click)="selectBowler(tm,i)" title="Click to select bowler">
+        <td>
+          <span><b>{{tm.bowlerName}}</b></span>
+        </td>
+        <td>
+         <span> {{tm.ballsOfOver}}</span>
+        </td>
+        <td>
+            <span>{{tm.runsConceded}}</span>
+        </td>
+        <td>
+          <span>{{tm.oversBowled}}</span> 
+        </td>
+        <td>
+          {{bowlerEconomy[i]}}
+        </td>   
+        <td>
+            <span>{{tm.maidens}}</span> 
+        </td>
+        <td>
+            <span>{{tm.wickets}}</span>
+        </td>
+
+      </tr>
+      <tr *ngIf="isAddBowler" >
+          <td  class="addB">
+            <input #bowlerName   type="text" class=" form-control" placeholder="Bowler" name="bowlerName"  value="">
+          </td>
+    
+          <td >
+              <input #ballsOfOver [hidden]="true"   type="number"  placeholder="ballsOfOver" name="ballsOfOver" value="0"> 
+          </td>
+          <td >
+              <input #runsConceded  [hidden]="true"   type="number"  placeholder="Runs" name="runsConceded" value="0"> 
+            </td>
+          <td >
+            <input #oversBowled  [hidden]="true"  type="number"  placeholder="Overs" name="oversBowled" value="0"> 
+          </td>
+          <td>
+            <input #maidens [hidden]="true"  type="number" placeholder="Maidens" name="maidens" value="0"> 
+          </td>
+  
+          <td >
+            <input #wickets [hidden]="true"  type="number" placeholder="Wickets" name="wickets" value="0"> 
+          </td> 
+    
+          <td >
+            <button  mat-raised-button *ngIf="!disableAllBtns" color="primary" style="min-width: 40px;"  (click)="addBowler(bowlerName,ballsOfOver,oversBowled,runsConceded,maidens,wickets)" >OK</button> 
+          </td>
+        </tr>
+      </tbody>
+  </table> 
+  <button mat-raised-button *ngIf="!disableAllBtns" color="primary" (click)="addNewBowler()"  style="margin-left: 5px; margin-bottom:8px">Add New Bowler</button>  
+
+  <!-- <ng-container *ngIf="!overBowled"> -->
+  <table *ngIf="bowlerSelected"  class="table table-striped">
+  <thead class="thead-dark hideShow">
+      <th>Name</th>
+      <th>Balls</th>
+      <th>Runs</th>
+      <th>Overs</th>
+      <th>Maidens</th>
+      <th>Wickets</th>
+      <th style="width:20%;">Choose</th>
+  </thead>
+  <thead class="thead-dark showHide">
+    <th>Name</th>
+    <th>B</th>
+    <th>R</th>
+    <th>O</th>
+    <th>M</th>
+    <th>W</th>
+    <th style="width:20%;">Choose</th>
+</thead>
+  <tbody >
+  
+  <tr >
+    <td >
+        <span><b>{{selBowler.bowlerName}}</b></span>
+      <input #bowlerName [hidden]="true"  type="text" class="form-control" placeholder="Bowler Name" name="bowlerName"  value="{{selBowler.bowlerName}}">
+    </td>
+    <td>
+        <div>{{selBowler.ballsOfOver}}</div> 
+        <input #ballsOfOver [hidden]="true"  type="number" class="form-control widths" placeholder="ballsOfOver" name="ballsOfOver" value="{{selBowler.ballsOfOver}}">
+    </td>
+    <td >
+        <span>{{selBowler.runsConceded}}</span>
+        <input #runsConceded [hidden]="true"  type="number" class="form-control widths" placeholder="Runs" name="runsConceded" value="{{selBowler.runsConceded}}"> 
+        <input #runs [hidden]="true"  type="number" class="form-control widths" placeholder="Runss" name="runs" value="0">  
+    </td>
+    <td >
+        <span>{{selBowler.oversBowled}}</span>
+      <input #oversBowled [hidden]="true"  type="number" class="form-control widths" placeholder="Overs" name="oversBowled" value="0"> 
+    </td>
+    <td>
+        <span>{{selBowler.maidens}}</span>
+      <input #maidens [hidden]="true" type="number" class="form-control widths" placeholder="Maidens" name="maidens" value="{{selBowler.maidens}}"> 
+    </td>
+
+    <td >
+        <span>{{selBowler.wickets}}</span>
+      <input #wickets [hidden]="true" type="number" class="form-control widths" placeholder="Wickets" name="wickets" value="{{selBowler.wickets}}"> 
+    </td> 
+
+    <!-- <td >
+      <button  mat-raised-button *ngIf="!disableAllBtns" color="primary"  (click)="updateBowler(bowlerName,oversBowled,runsConceded,maidens,wickets)" >OK</button> 
+    </td> -->
+    <td  style="width:45%;">
+     <span>
+      <span class="badge badge-pill badge-info"      (click)="addBall(0,bowlerName,ballsOfOver,selBowler.oversBowled,oversBowled,runs,runsConceded,maidens,wickets,selBowler.index)">0</span>
+      <span class="badge badge-pill badge-primary"   (click)="addBall(1,bowlerName,ballsOfOver,selBowler.oversBowled,oversBowled,runs,runsConceded,maidens,wickets,selBowler.index)">1</span>
+      <span class="badge badge-pill badge-secondary" (click)="addBall(2,bowlerName,ballsOfOver,selBowler.oversBowled,oversBowled,runs,runsConceded,maidens,wickets,selBowler.index)">2</span>
+      <span class="badge badge-pill badge-success"   (click)="addBall(3,bowlerName,ballsOfOver,selBowler.oversBowled,oversBowled,runs,runsConceded,maidens,wickets,selBowler.index)">3</span>
+      <span class="badge badge-pill badge-danger"    (click)="addBall(4,bowlerName,ballsOfOver,selBowler.oversBowled,oversBowled,runs,runsConceded,maidens,wickets,selBowler.index)">4</span>
+      <span class="badge badge-pill badge-warning"   (click)="addBall(5,bowlerName,ballsOfOver,selBowler.oversBowled,oversBowled,runs,runsConceded,maidens,wickets,selBowler.index)">5</span>
+      <span class="badge badge-pill badge-success"   (click)="addBall(6,bowlerName,ballsOfOver,selBowler.oversBowled,oversBowled,runs,runsConceded,maidens,wickets,selBowler.index)">6</span>
+
+      <!-- when batsman scores runs on noball -->
+      <span class="badge badge-pill badge-light" (click)="addBall('nb',bowlerName,ballsOfOver,selBowler.oversBowled,oversBowled,runs,runsConceded,maidens,wickets,selBowler.index)">nb</span>
+      <span class="badge badge-pill badge-light" (click)="addBall('1nb',bowlerName,ballsOfOver,selBowler.oversBowled,oversBowled,runs,runsConceded,maidens,wickets,selBowler.index)">1nb</span>
+      <span class="badge badge-pill badge-light" (click)="addBall('2nb',bowlerName,ballsOfOver,selBowler.oversBowled,oversBowled,runs,runsConceded,maidens,wickets,selBowler.index)">2nb</span>
+      <span class="badge badge-pill badge-light" (click)="addBall('3nb',bowlerName,ballsOfOver,selBowler.oversBowled,oversBowled,runs,runsConceded,maidens,wickets,selBowler.index)">3nb</span>
+      <span class="badge badge-pill badge-light" (click)="addBall('4nb',bowlerName,ballsOfOver,selBowler.oversBowled,oversBowled,runs,runsConceded,maidens,wickets,selBowler.index)">4nb</span>
+      <span class="badge badge-pill badge-light" (click)="addBall('4nb',bowlerName,ballsOfOver,selBowler.oversBowled,oversBowled,runs,runsConceded,maidens,wickets,selBowler.index)">5nb</span>
+      <span class="badge badge-pill badge-light" (click)="addBall('6nb',bowlerName,ballsOfOver,selBowler.oversBowled,oversBowled,runs,runsConceded,maidens,wickets,selBowler.index)">6nb</span>
+
+      <span class="badge badge-pill badge-dark" (click)="addBall('wd',bowlerName,ballsOfOver,selBowler.oversBowled,oversBowled,runs,runsConceded,maidens,wickets,selBowler.index)">wd</span>
+      <span class="badge badge-pill badge-dark" (click)="addBall('1wd',bowlerName,ballsOfOver,selBowler.oversBowled,oversBowled,runs,runsConceded,maidens,wickets,selBowler.index)">1wd</span>
+      <span class="badge badge-pill badge-dark" (click)="addBall('2wd',bowlerName,ballsOfOver,selBowler.oversBowled,oversBowled,runs,runsConceded,maidens,wickets,selBowler.index)">2wd</span>
+      <span class="badge badge-pill badge-dark" (click)="addBall('3wd',bowlerName,ballsOfOver,selBowler.oversBowled,oversBowled,runs,runsConceded,maidens,wickets,selBowler.index)">3wd</span>
+      <span class="badge badge-pill badge-dark" (click)="addBall('4wd',bowlerName,ballsOfOver,selBowler.oversBowled,oversBowled,runs,runsConceded,maidens,wickets,selBowler.index)">4wd</span>
+
+      <span class="badge badge-pill badge-success" (click)="addBall('1lb',bowlerName,ballsOfOver,selBowler.oversBowled,oversBowled,runs,runsConceded,maidens,wickets,selBowler.index)">1lb</span>
+      <span class="badge badge-pill badge-success" (click)="addBall('2lb',bowlerName,ballsOfOver,selBowler.oversBowled,oversBowled,runs,runsConceded,maidens,wickets,selBowler.index)">2lb</span>
+      <span class="badge badge-pill badge-success" (click)="addBall('3lb',bowlerName,ballsOfOver,selBowler.oversBowled,oversBowled,runs,runsConceded,maidens,wickets,selBowler.index)">3lb</span>
+      <span class="badge badge-pill badge-success" (click)="addBall('4lb',bowlerName,ballsOfOver,selBowler.oversBowled,oversBowled,runs,runsConceded,maidens,wickets,selBowler.index)">4lb</span>
+
+      <!-- for byes runs on noball -->
+      <span class="badge badge-pill badge-secondary" (click)="addBall('nb+1B',bowlerName,ballsOfOver,selBowler.oversBowled,oversBowled,runs,runsConceded,maidens,wickets,selBowler.index)">nb+1B</span>
+      <span class="badge badge-pill badge-secondary" (click)="addBall('nb+2B',bowlerName,ballsOfOver,selBowler.oversBowled,oversBowled,runs,runsConceded,maidens,wickets,selBowler.index)">nb+2B</span>
+      <span class="badge badge-pill badge-secondary" (click)="addBall('nb+3B',bowlerName,ballsOfOver,selBowler.oversBowled,oversBowled,runs,runsConceded,maidens,wickets,selBowler.index)">nb+3B</span>
+      <span class="badge badge-pill badge-secondary" (click)="addBall('nb+4B',bowlerName,ballsOfOver,selBowler.oversBowled,oversBowled,runs,runsConceded,maidens,wickets,selBowler.index)">nb+4B</span>
+
+      <span class="badge badge-pill badge-secondary" (click)="addBall('1b',bowlerName,ballsOfOver,selBowler.oversBowled,oversBowled,runs,runsConceded,maidens,wickets,selBowler.index)">1b</span>
+      <span class="badge badge-pill badge-secondary" (click)="addBall('2b',bowlerName,ballsOfOver,selBowler.oversBowled,oversBowled,runs,runsConceded,maidens,wickets,selBowler.index)">2b</span>
+      <span class="badge badge-pill badge-secondary" (click)="addBall('3b',bowlerName,ballsOfOver,selBowler.oversBowled,oversBowled,runs,runsConceded,maidens,wickets,selBowler.index)">3b</span>
+      <span class="badge badge-pill badge-secondary" (click)="addBall('4b',bowlerName,ballsOfOver,selBowler.oversBowled,oversBowled,runs,runsConceded,maidens,wickets,selBowler.index)">4b</span>
+
+      <span class="badge badge-pill badge-danger" (click)="addBall('W',bowlerName,ballsOfOver,selBowler.oversBowled,oversBowled,runs,runsConceded,maidens,wickets,selBowler.index)">W</span>
+    </span>
+    </td>
+    </tr>
+  </tbody>
+</table>
+  <!-- </ng-container> -->
+
+<div *ngIf="ballsOfOverArr.length>0">
+    <span><b>This Over:</b></span>&nbsp;&nbsp;
+  <ng-container *ngFor="let ball of ballsOfOverArr">
+    <span class="badge badge-pill badge-light">{{ball}}</span>
+  </ng-container>
+</div>  
+    
+    <br>
+    <br>
+    <hr style="background: rgb(50, 207, 50);">
+  
+    <div class="extrasHeading">
+        <p>Extras</p>
+    </div>
+    <table *ngIf="disableAllBtns" class="table table-striped">
+      <thead class="thead-dark">
+        <th>Wides</th>
+        <th>No balls</th>
+        <th>Leg byes</th>
+        <th>Byes</th>
+      </thead>
+      <tbody>
+        <tr >
+          <td>
+            <span>{{Extra.wides}}</span>  
+          </td>
+          <td>
+              <span>{{Extra.noBalls}}</span> 
+          </td>
+          <td>
+              <span>{{Extra.legByes}}</span> 
+          </td>
+          <td>
+              <span>{{Extra.byes}}</span> 
+          </td>
+        </tr> 
+      </tbody>
+    </table>
+
+    <table *ngIf="!disableAllBtns" class="table table-striped">
+      <thead class="thead-dark">
+          <th>Wides</th>
+          <th>No balls</th>
+          <th>Leg byes</th>
+          <th>Byes</th>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+              <span>{{Extra.wides}}</span>  
+          </td>
+          <td>
+              <span>{{Extra.noBalls}}</span> 
+          </td>
+          <td>
+              <span>{{Extra.legByes}}</span>
+          </td>
+          <td>
+              <span>{{Extra.byes}}</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="tExtras" >
+      <span>Total Extras:</span>&nbsp; <span>{{this.totalExtras}}</span>
+    </div>
+  
+    <button  *ngIf="!disableAllBtns" class="endInningsBtn" mat-raised-button color="primary"  (click)="endFirstInning()">END FIRST INNINGS</button>
+  
+  
+  <div class="footer-div">
+    <p style="background: antiquewhite; padding: 5px; ">
+      <i><strong>Note:</strong></i>&nbsp;First enter balls for bowler, for smoothness.<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If Batsman's balls to choose doesn't show, please refresh the page.</p>
+  </div>

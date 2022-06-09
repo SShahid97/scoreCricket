@@ -1,0 +1,9 @@
+<nav  >
+    <mat-card class="headerCard" >
+    <div class="logo">        
+        <span>ScoreCricket</span>
+        <a *ngIf="!showMatchInit" target="_blank" routerLink="match-initials" class="headerBtnLink" (click)="toggleNewMatchLink()">New Match</a>
+    </div>
+    </mat-card>
+</nav>
+<router-outlet></router-outlet> 

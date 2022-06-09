@@ -1,0 +1,79 @@
+<mat-card   class="centerButtonBgImg" >
+  <div class="centerButton" *ngIf="!showMatchInitFormlocal">
+    <button mat-fab color="primary" (click)="MatchInitForm()" style="margin:auto; width: 110px; height: 110px; font-size: large;" aria-label="Start Match">START</button>
+  </div>
+
+  <mat-card  *ngIf="showMatchInitFormlocal" class="cardStyle">
+    <form (ngSubmit)="onSubmit(matchInForm)" #matchInForm="ngForm" >
+      <div class="form-group " style=" text-align: center;  " >
+        <label for="matchName" ><strong>Match Name*</strong></label>
+        <div class="input-group"  >
+            <!-- [ngClass]="{'ng-invalid':showInvalidOversMsg6||showInvalidOversMsg7}"  -->
+          <input type="text"  (blur)="checkMatchName()" autocomplete="off" id="matchName" name="matchName" placeholder="Enter match name" class="form-control"  [(ngModel)]="matchName" required>
+        </div>
+        <p *ngIf="showInvalidOversMsg6" class="OverErrorMsg">
+          Please enter at least 3 characters 
+        </p>
+        <p *ngIf="showInvalidOversMsg7" class="OverErrorMsg">
+          Only letters and Numbers are allowed
+        </p>
+
+        <label for="overs" style="margin-top:5px;"><strong>Number of Overs*</strong></label>
+        <div class="input-group"  > 
+          <input type="number" onkeydown="if(event.key==='.'){event.preventDefault();}"  oninput="event.target.value = event.target.value.replace(/[^0-9]*/g,'');"  autocomplete="off" min="1" id="overs" name="overs" placeholder="Enter number of overs" class="form-control"  
+          (blur)="checkOvers()" [(ngModel)]="inputOvers" required>
+          <br>
+        </div>
+        <p *ngIf="showInvalidOversMsg" class="OverErrorMsg">
+          Please enter overs greater than 0
+        </p>
+  
+        <label for="teamOne" style="margin-top:5px;"><strong>First Team*</strong></label>
+        <div class="input-group"  > 
+          <input type="text" (blur)="checkTeamOne(matchInForm)" autocomplete="off" id="teamOne" name="teamOne" placeholder="Enter first team name" class="form-control"  [(ngModel)]="TeamOne" required>
+        </div>
+        <p *ngIf="showInvalidOversMsg2" class="OverErrorMsg">
+          Please enter at least 3 characters 
+        </p>
+        <p *ngIf="showInvalidOversMsg4" class="OverErrorMsg">
+          Only letters and Numbers are allowed
+        </p>
+        <div style="margin-top:5px; margin-bottom:5px; font-size: 1.2em;">
+          <span>VS</span>  
+        </div>
+  
+        <label for="teamSecond"><strong>Second Team*</strong></label>
+        <div class="input-group">
+          <input type="text" (blur)="checkTeamTwo()" autocomplete="off" id="teamSecond" name="teamSecond"  placeholder="Enter second team name"  class="form-control" [(ngModel)]="TeamTwo" required>
+        </div>
+        <p *ngIf="showInvalidOversMsg3" class="OverErrorMsg">
+          Please enter at least 3 characters 
+        </p>
+        <p *ngIf="showInvalidOversMsg5" class="OverErrorMsg">
+          Only letters and Numbers are allowed
+        </p>
+        <label for="sel1" style="margin-top:15px;"><strong>Toss won by:</strong></label>
+        <div class="input-group"  > 
+          <select ngModel class="form-control" name="tossWinningTeam" id="sel1" required>
+              <option value="" disabled="true">Select</option> 
+              <option value="{{TeamOne}}">{{TeamOne}}</option>
+              <option value="{{TeamTwo}}">{{TeamTwo}}</option>
+          </select>
+        </div>
+        <label for="sel1" style="margin-top:15px;"><strong>Choose To:</strong></label>
+        <div class="input-group"  > 
+          <select ngModel class="form-control" id="sel1" name="choseTo" required>
+              <option value="" disabled="true">Select</option>
+            <option value="bat">Bat</option>
+            <option value="bowl">Bowl</option>
+          </select>
+        </div>
+        <div style="margin-top: 20px;" >
+          <button type="submit" class="form-control" [disabled]="!matchInForm.valid" class="btn btn-outline-dark">Start Match</button>
+      </div>
+      </div>   
+    </form>
+  </mat-card>
+  
+</mat-card>
+       
